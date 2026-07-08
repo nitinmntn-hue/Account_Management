@@ -1,0 +1,69 @@
+# ==========================
+# Dependencies
+# ==========================
+**/node_modules/
+
+# ==========================
+# Next.js
+# ==========================
+my-app/.next/
+my-app/out/
+
+# ==========================
+# Backend
+# ==========================
+backend/dist/
+backend/build/
+backend/uploads/
+backend/logs/
+backend/temp/
+
+# ==========================
+# Environment Variables
+# ==========================
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.production.local
+
+# ==========================
+# Log Files
+# ==========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Editors
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# Cache
+# ==========================
+.cache/
+.turbo/
+.eslintcache
+
+# ==========================
+# Package Managers
+# ==========================
+.pnpm-store/
+
+# ==========================
+# Coverage
+# ==========================
+coverage/
+
+# ==========================
+# Misc
+# ==========================
+*.pid
