@@ -1,273 +1,295 @@
 "use client";
+
 import {
-    Wallet,
-    Landmark,
     TrendingUp,
     TrendingDown,
+    Wallet,
+    Landmark,
     Users,
-    Receipt,
-    ArrowRightLeft,
-    IndianRupee,
-    BarChart,
-    FileText,
-    CreditCard,
+    Truck,
+    BadgeIndianRupee,
+    FolderTree,
+    ArrowLeftRight,
+    Building2,
 } from "lucide-react";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import StatCard from "@/components/dashboard/StatCard";
+import QuickActionCard from "@/components/dashboard/QuickActionCard";
+import BalanceCard from "@/components/dashboard/BalanceCard";
+import TransactionTable from "@/components/dashboard/TransactionTable";
 
-const cards = [
-    {
-        title: "Today's Income",
-        amount: "₹25,500",
-        icon: TrendingUp,
-        color: "bg-green-500",
-    },
-    {
-        title: "Today's Expense",
-        amount: "₹8,200",
-        icon: TrendingDown,
-        color: "bg-red-500",
-    },
-    {
-        title: "Cash In Hand",
-        amount: "₹1,20,000",
-        icon: Wallet,
-        color: "bg-yellow-500",
-    },
-    {
-        title: "Bank Balance",
-        amount: "₹3,42,500",
-        icon: Landmark,
-        color: "bg-blue-500",
-    },
-    {
-        title: "Total Vendors",
-        amount: "25",
-        icon: Users,
-        color: "bg-purple-500",
-    },
-    {
-        title: "Transactions",
-        amount: "256",
-        icon: Receipt,
-        color: "bg-indigo-500",
-    },
-    {
-        title: "Profit",
-        amount: "₹17,300",
-        icon: IndianRupee,
-        color: "bg-emerald-500",
-    },
-    {
-        title: "Contra Voucher",
-        amount: "12",
-        icon: ArrowRightLeft,
-        color: "bg-orange-500",
-    },
-];
-
-export default function Dashboard() {
-    const pathname = usePathname();
-
-
-
+export default function DashboardPage() {
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="space-y-8">
 
-            <div className="flex justify-between items-center mb-8">
-                <div>
-                    <h1 className="text-3xl font-bold">
-                        Dashboard
-                    </h1>
-                    <p className="text-gray-500">
-                        Welcome to Account Management System
-                    </p>
-                </div>
+            {/* ========================================= */}
+            {/* Welcome */}
+            {/* ========================================= */}
 
-                <div className="bg-white rounded-lg shadow px-5 py-3">
-                    Financial Year
-                    <br />
-                    <span className="font-bold">
-                        2026 - 2027
-                    </span>
-                </div>
+            <div>
+                <h1 className="text-3xl font-bold text-gray-800">
+                    Welcome Back 👋
+                </h1>
+
+                <p className="mt-2 text-gray-500">
+                    Here's an overview of your business today.
+                </p>
             </div>
 
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-5">
+            {/* ========================================= */}
+            {/* Statistics */}
+            {/* ========================================= */}
 
-                {cards.map((card) => (
-                    <div
-                        key={card.title}
-                        className="bg-white rounded-xl shadow p-5 flex justify-between items-center"
-                    >
-                        <div>
-                            <p className="text-gray-500 text-sm">
-                                {card.title}
-                            </p>
+            <section>
+                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
 
-                            <h2 className="text-2xl font-bold mt-2">
-                                {card.amount}
-                            </h2>
-                        </div>
+                    <StatCard
+                        title="Today's Income"
+                        value="₹18,500"
+                        icon={TrendingUp}
+                        color="green"
+                        trend="up"
+                        trendValue="+12%"
+                        description="vs Yesterday"
+                    />
 
-                        <div
-                            className={`${card.color} p-3 rounded-lg text-white`}
-                        >
-                            <card.icon size={28} />
-                        </div>
-                    </div>
-                ))}
+                    <StatCard
+                        title="Today's Expense"
+                        value="₹8,300"
+                        icon={TrendingDown}
+                        color="red"
+                        trend="down"
+                        trendValue="-5%"
+                        description="vs Yesterday"
+                    />
 
-            </div>
+                    <StatCard
+                        title="Cash Balance"
+                        value="₹75,200"
+                        icon={Wallet}
+                        color="blue"
+                        trend="up"
+                        trendValue="+₹5,500"
+                        description="Available"
+                    />
 
-            <div className="grid lg:grid-cols-2 gap-6 mt-8">
-
-                <div className="bg-white rounded-xl shadow p-5 h-80">
-                    <h2 className="font-semibold text-lg mb-4">
-                        Income vs Expense
-                    </h2>
-
-                    <div className="flex justify-center items-center h-full text-gray-400">
-                        Chart Here
-                    </div>
-                </div>
-
-                <div className="bg-white rounded-xl shadow p-5 h-80">
-                    <h2 className="font-semibold text-lg mb-4">
-                        Cash Flow
-                    </h2>
-
-                    <div className="flex justify-center items-center h-full text-gray-400">
-                        Chart Here
-                    </div>
-                </div>
-
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-6 mt-8">
-
-                <div className="lg:col-span-2 bg-white rounded-xl shadow p-5">
-
-                    <h2 className="text-lg font-semibold mb-4">
-                        Latest Transactions
-                    </h2>
-
-                    <table className="w-full">
-
-                        <thead>
-                            <tr className="border-b">
-                                <th className="text-left py-3">Date</th>
-                                <th className="text-left">Type</th>
-                                <th className="text-left">Party</th>
-                                <th className="text-right">Amount</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <tr className="border-b">
-                                <td className="py-3">05 Jul</td>
-                                <td>Income</td>
-                                <td>ABC Traders</td>
-                                <td className="text-right text-green-600">
-                                    ₹5,000
-                                </td>
-                            </tr>
-
-                            <tr className="border-b">
-                                <td className="py-3">05 Jul</td>
-                                <td>Expense</td>
-                                <td>Fuel</td>
-                                <td className="text-right text-red-600">
-                                    ₹1,200
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td className="py-3">04 Jul</td>
-                                <td>Deposit</td>
-                                <td>SBI</td>
-                                <td className="text-right">
-                                    ₹20,000
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
+                    <StatCard
+                        title="Bank Balance"
+                        value="₹2,45,000"
+                        icon={Landmark}
+                        color="purple"
+                        trend="up"
+                        trendValue="+₹12,000"
+                        description="All Accounts"
+                    />
 
                 </div>
+            </section>
 
-                <div className="bg-white rounded-xl shadow p-5">
+            {/* ========================================= */}
+            {/* Quick Actions */}
+            {/* ========================================= */}
 
-                    <h2 className="text-lg font-semibold mb-4">
+            <section>
+
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">
                         Quick Actions
                     </h2>
 
-                    <div className="grid gap-3">
+                    <p className="text-gray-500 text-sm">
+                        Frequently used shortcuts
+                    </p>
+                </div>
 
-                        <Link
-                            href={"dashboard/transactions/income"}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg transition bg-slate-800 text-slate-300    "
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
 
-                        >
-                            <TrendingUp size={20} />
-                            <span>Add Income</span>
-                        </Link>
+                    <QuickActionCard
+                        title="Add Payment"
+                        description="Income / Expense"
+                        href="/payments/add"
+                        icon={BadgeIndianRupee}
+                        color="green"
+                    />
 
+                    <QuickActionCard
+                        title="Salary"
+                        description="Pay Staff Salary"
+                        href="/payments/salary"
+                        icon={Users}
+                        color="purple"
+                    />
 
-                        <Link
-                            href={"dashboard/transactions/expenses"}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg transition bg-slate-800 text-slate-300"
+                    <QuickActionCard
+                        title="Contra Entry"
+                        description="Cash ↔ Bank"
+                        href="/payments/contra"
+                        icon={ArrowLeftRight}
+                        color="blue"
+                    />
 
-                        >
-                            <TrendingDown size={20} />
-                            <span>Add Expense</span>
-                        </Link>
+                    <QuickActionCard
+                        title="Vendor"
+                        description="Create Vendor"
+                        href="/parties/vendors"
+                        icon={Truck}
+                        color="orange"
+                    />
 
-                        <Link
-                            href={"dashboard/transactions/cash-deposit"}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg transition bg-slate-800 text-slate-300"
-
-                        >
-                            <CreditCard size={20} />
-                            <span>Cash Deposit</span>
-                        </Link>
-
-
-                        <Link
-                            href={"dashboard/transactions/cash-withdraw"}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg transition bg-slate-800 text-slate-300"
-
-                        >
-                            <Wallet size={20} />
-                            <span>Cash Withdraw</span>
-                        </Link>
-
-                        <Link
-                            href={"dashboard/transactions/contra-voucher"}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg transition bg-slate-800 text-slate-300"
-
-                        >
-                            <FileText size={20} />
-                            <span>Contra Voucher</span>
-                        </Link>
-
-                        <Link
-                            href={"dashboard/reports"}
-                            className="flex items-center gap-3 px-4 py-3 rounded-lg transition bg-slate-800 text-slate-300"
-
-                        >
-                            <BarChart size={20} />
-                            <span>View Reports</span>
-                        </Link>
-
-                    </div>
+                    <QuickActionCard
+                        title="Income Head"
+                        description="Create Head"
+                        href="/heads/income"
+                        icon={FolderTree}
+                        color="yellow"
+                    />
 
                 </div>
 
-            </div>
+            </section>
+
+            {/* ========================================= */}
+            {/* Account Summary */}
+            {/* ========================================= */}
+
+            <section>
+
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">
+                        Cash & Bank Accounts
+                    </h2>
+                </div>
+
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
+                    <BalanceCard
+                        title="Cash Counter"
+                        accountNumber="Office Cash"
+                        balance={85000}
+                        todayChange={2500}
+                        type="cash"
+                    />
+
+                    <BalanceCard
+                        title="SBI Bank"
+                        accountNumber="XXXX-4521"
+                        balance={245000}
+                        todayChange={18000}
+                        type="bank"
+                    />
+
+                    <BalanceCard
+                        title="HDFC Bank"
+                        accountNumber="XXXX-7895"
+                        balance={126000}
+                        todayChange={-2500}
+                        type="bank"
+                    />
+
+                    <BalanceCard
+                        title="ICICI Bank"
+                        accountNumber="XXXX-5612"
+                        balance={82000}
+                        todayChange={4200}
+                        type="bank"
+                    />
+
+                </div>
+
+            </section>
+
+            {/* ========================================= */}
+            {/* Overview */}
+            {/* ========================================= */}
+
+            <section>
+
+                <div className="grid gap-6 lg:grid-cols-3">
+
+                    {/* Chart */}
+
+                    {/* <div className="rounded-2xl border bg-white p-6 lg:col-span-2 shadow-sm">
+
+                        <h2 className="text-xl font-semibold">
+                            Income vs Expense
+                        </h2>
+
+                        <div className="mt-6 flex h-72 items-center justify-center rounded-xl border-2 border-dashed border-gray-300">
+
+                            <div className="text-center">
+
+                                <TrendingUp
+                                    size={60}
+                                    className="mx-auto text-gray-300"
+                                />
+
+                                <p className="mt-4 text-gray-500">
+                                    Recharts will be added here
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div> */}
+
+                    {/* Summary */}
+
+                    {/* <div className="rounded-2xl border bg-white p-6 shadow-sm">
+
+                        <h2 className="text-xl font-semibold">
+                            Business Summary
+                        </h2>
+
+                        <div className="mt-6 space-y-5">
+
+                            <div className="flex justify-between">
+                                <span>Total Customers</span>
+                                <span className="font-bold">245</span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Total Vendors</span>
+                                <span className="font-bold">48</span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Pending Payments</span>
+                                <span className="font-bold text-red-600">
+                                    ₹42,500
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Staff Salary</span>
+                                <span className="font-bold">
+                                    ₹1,25,000
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Bank Accounts</span>
+                                <span className="font-bold">4</span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Cash Accounts</span>
+                                <span className="font-bold">2</span>
+                            </div>
+
+                        </div>
+
+                    </div> */}
+
+                </div>
+
+            </section>
+
+            {/* ========================================= */}
+            {/* Recent Transactions */}
+            {/* ========================================= */}
+
+            {/* <TransactionTable /> */}
 
         </div>
     );
