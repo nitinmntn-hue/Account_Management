@@ -320,8 +320,6 @@ const TransactionList = () => {
                                     </tr>
                                 ))}
                             </tbody>
-
-
                         </table>
                     </div>
                 </div>
