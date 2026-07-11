@@ -30,19 +30,15 @@ const menus = [
     children: [
       {
         title: "Add Payment",
-        href: "/payments/add",
+        href: "/add-transactions",
       },
       {
         title: "Payment History",
-        href: "/payments/history",
+        href: "/transaction-list",
       },
       {
         title: "Salary",
         href: "/payments/salary",
-      },
-      {
-        title: "Contra / Deposit",
-        href: "/payments/contra",
       },
     ],
   },
