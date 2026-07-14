@@ -1,0 +1,44 @@
+const express = require("express");
+const router = express.Router();
+
+const userRoutes = require("./user.routes.js");
+// const roleRoutes =require( "./role.routes.js");
+// const authRoutes =require( "./auth.routes.js");
+const companyRoutes = require("./company.routes.js");
+// const sessionRoutes =require( "./session.routes.js");
+// const dashboardRoutes =require( "./dashboard.routes.js");
+// const partyRoutes =require( "./party.routes.js");
+// const accountRoutes =require( "./account.routes.js");
+// const headRoutes =require( "./head.routes.js");
+const transactionRoutes = require("./transaction.routes.js");
+// const productRoutes =require( "./product.routes.js");
+// const categoryRoutes =require( "./category.routes.js");
+// const unitRoutes =require( "./unit.routes.js");
+// const purchaseRoutes =require( "./purchase.routes.js");
+// const saleRoutes =require( "./sale.routes.js");
+// const reportRoutes =require( "./report.routes.js");
+// const notificationRoutes =require( "./notification.routes.js");
+// const uploadRoutes =require( "./upload.routes.js");
+// const settingRoutes =require( "./setting.routes.js");
+
+// router.use("/auth", authRoutes);
+router.use("/users", userRoutes);
+// router.use("/roles", roleRoutes);
+router.use("/company", companyRoutes);
+// router.use("/sessions", sessionRoutes);
+// router.use("/dashboard", dashboardRoutes);
+// router.use("/parties", partyRoutes);
+// router.use("/accounts", accountRoutes);
+// router.use("/heads", headRoutes);
+router.use("/transactions", transactionRoutes);
+// router.use("/products", productRoutes);
+// router.use("/categories", categoryRoutes);
+// router.use("/units", unitRoutes);
+// router.use("/purchases", purchaseRoutes);
+// router.use("/sales", saleRoutes);
+// router.use("/reports", reportRoutes);
+// router.use("/notifications", notificationRoutes);
+// router.use("/uploads", uploadRoutes);
+// router.use("/settings", settingRoutes);
+
+module.exports = router;

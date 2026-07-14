@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+model Company {
+  id          String   @id @default(uuid())
+  name        String
+  email       String?
+  phone       String?
+  address     String?
+  gstNumber   String?
+  logo        String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users        User[]
+  sessions     Session[]
+  accounts     Account[]
+  parties      Party[]
+  transactions Transaction[]
+}
+
+model User {
+  id            String    @id @default(uuid())
+
+  name          String
+  email         String    @unique
+  mobile        String    @unique
+  password      String
+
+  role          UserRole  @default(STAFF)
+
+  isVerified    Boolean   @default(false)
+  isActive      Boolean   @default(true)
+
+  profileImage  String?
+
+  companyId     String
+  company        Company   @relation(fields: [companyId], references: [id])
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Session {
+  id            String   @id @default(uuid())
+
+  name          String
+  startDate     DateTime
+  endDate       DateTime
+
+  isActive      Boolean @default(false)
+
+  companyId     String
+  company        Company @relation(fields: [companyId], references: [id])
+
+  transactions  Transaction[]
+
+  createdAt     DateTime @default(now())
+}
+
+model Account {
+  id            String   @id @default(uuid())
+
+  name          String
+  type          String
+
+  openingBalance Decimal @db.Decimal(15,2)
+  currentBalance Decimal @db.Decimal(15,2)
+
+  companyId     String
+  company        Company @relation(fields: [companyId], references: [id])
+
+  transactions  Transaction[]
+
+  createdAt     DateTime @default(now())
+}
+
+model Party {
+  id            String @id @default(uuid())
+
+  name          String
+  mobile        String?
+  email         String?
+  address       String?
+
+  type          String
+
+  openingBalance Decimal @default(0)
+
+  companyId     String
+  company        Company @relation(fields: [companyId], references: [id])
+
+  transactions  Transaction[]
+
+  createdAt     DateTime @default(now())
+}
+
+model Transaction {
+
+  id            String @id @default(uuid())
+
+  voucherNo     String @unique
+
+  type          String
+  // Income
+  // Expense
+  // Cash Deposit
+  // Cash Withdraw
+  // Contra
+  // Purchase
+  // Sale
+
+  amount        Decimal @db.Decimal(15,2)
+
+  description   String?
+
+  transactionDate DateTime
+
+  partyId       String?
+  party         Party? @relation(fields: [partyId], references: [id])
+
+  accountId     String
+  account       Account @relation(fields: [accountId], references: [id])
+
+  companyId     String
+  company        Company @relation(fields: [companyId], references: [id])
+
+  sessionId     String
+  session        Session @relation(fields: [sessionId], references: [id])
+
+  createdBy     String
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
