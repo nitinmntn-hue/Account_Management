@@ -73,20 +73,38 @@ model Session {
 }
 
 model Account {
-  id            String   @id @default(uuid())
+  id               String   @id @default(uuid())
 
-  name          String
-  type          String
+  accountName      String
+  accountNumber    String?
+  bankName         String?
+  ifscCode         String?
+  branch           String?
 
-  openingBalance Decimal @db.Decimal(15,2)
-  currentBalance Decimal @db.Decimal(15,2)
+  type             AccountType
 
-  companyId     String
-  company        Company @relation(fields: [companyId], references: [id])
+  openingBalance   Decimal @db.Decimal(15,2)
+  currentBalance   Decimal @db.Decimal(15,2)
 
-  transactions  Transaction[]
+  isDefault        Boolean @default(false)
+  isActive         Boolean @default(true)
 
-  createdAt     DateTime @default(now())
+  companyId        String
+  company          Company @relation(fields: [companyId], references: [id])
+
+  transactions     Transaction[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+enum AccountType {
+  CASH
+  BANK
+  UPI
+  WALLET
+  CREDIT_CARD
+  LOAN
 }
 
 model Party {
@@ -111,39 +129,63 @@ model Party {
 
 model Transaction {
 
-  id            String @id @default(uuid())
+  id               String @id @default(uuid())
 
-  voucherNo     String @unique
+  voucherNo        String @unique
 
-  type          String
-  // Income
-  // Expense
-  // Cash Deposit
-  // Cash Withdraw
-  // Contra
-  // Purchase
-  // Sale
+  type             String
 
-  amount        Decimal @db.Decimal(15,2)
+  amount           Decimal @db.Decimal(15,2)
+
+  description      String?
+
+  transactionDate  DateTime
+
+  accountHeadId    String
+  accountHead      AccountHead @relation(fields:[accountHeadId], references:[id])
+
+  partyId          String?
+  party            Party? @relation(fields:[partyId], references:[id])
+
+  accountId        String
+  account          Account @relation(fields:[accountId], references:[id])
+
+  companyId        String
+  company          Company @relation(fields:[companyId], references:[id])
+
+  sessionId        String
+  session          Session @relation(fields:[sessionId], references:[id])
+
+  createdBy        String
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+enum HeadType {
+  INCOME
+  EXPENSE
+  ASSET
+  LIABILITY
+  EQUITY
+}
+
+model AccountHead {
+  id            String    @id @default(uuid())
+
+  name          String
+  code          String?   @unique
+  type          HeadType
 
   description   String?
 
-  transactionDate DateTime
-
-  partyId       String?
-  party         Party? @relation(fields: [partyId], references: [id])
-
-  accountId     String
-  account       Account @relation(fields: [accountId], references: [id])
+  isActive      Boolean   @default(true)
 
   companyId     String
-  company        Company @relation(fields: [companyId], references: [id])
+  company        Company   @relation(fields: [companyId], references: [id])
 
-  sessionId     String
-  session        Session @relation(fields: [sessionId], references: [id])
+  transactions  Transaction[]
 
-  createdBy     String
-
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
