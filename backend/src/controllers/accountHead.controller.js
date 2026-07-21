@@ -173,10 +173,27 @@ const changeAccountHeadStatus = async (req, res) => {
 
 const deleteAccountHead = async (req, res) => {
   try {
+    const { id } = req.params;
+    await prisma.accountHead.delete({
+      where: { id },
+    });
+    res.json({
+      success: true,
+      message: "Account Head deleted successfully",
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: err.message,
     });
   }
+};
+
+module.exports = {
+  createAccountHead,
+  getAccountHeads,
+  getAccountHeadById,
+  updateAccountHead,
+  changeAccountHeadStatus,
+  deleteAccountHead,
 };
