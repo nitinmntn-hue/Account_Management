@@ -115,7 +115,7 @@ model Party {
   email         String?
   address       String?
 
-  type          String
+  type          PartyType
 
   openingBalance Decimal @default(0)
 
@@ -125,6 +125,11 @@ model Party {
   transactions  Transaction[]
 
   createdAt     DateTime @default(now())
+}
+enum PartyType {
+  CUSTOMER
+  VENDOR
+  OTHER_CLIENT
 }
 
 model Transaction {

@@ -1,8 +1,21 @@
-router.get("/");
-router.get("/:id");
+const express = require("express");
 
-router.post("/");
+const {
+  createParty,
+  getParties,
+  getPartyById,
+  changePartyStatus,
+  deleteParty,
+  updatePartyById,
+} = require("../controllers/party.controller");
 
-router.put("/:id");
+const router = express.Router();
 
-router.delete("/:id");
+router.post("/", createParty);
+router.get("/", getParties);
+router.get("/:id", getPartyById);
+router.put("/:id", updatePartyById);
+router.patch("/:id/status", changePartyStatus);
+router.delete("/:id", deleteParty);
+
+module.exports = router;
